@@ -61,13 +61,10 @@ DesafioKhipu/
 
 🔒 Seguridad
 
-Tu API Key no debe compartirse.
+La API Key no debe compartirse.
 
 El archivo .env está en .gitignore → no se sube al repo.
 
 Solo compartir .env.example como guía.
 
-📜 Licencia
 
-Este proyecto se distribuye bajo la licencia MIT.
-Uso únicamente con fines demostrativos para el desafío técnico
