@@ -1,0 +1,30 @@
+import requests, webbrowser
+
+API_KEY = "Aqui API Key"  # Clave en modo desarrollo desde el portal
+
+url = "https://payment-api.khipu.com/v3/payments"
+payload = {
+    "subject": "Prueba integración API",
+    "currency": "CLP",
+    "amount": 1000,                # Máx. 5000 CLP en DemoBank
+    "transaction_id": "demo-001"
+    # Puedes agregar return_url / cancel_url / notify_url si ya los tienes
+}
+headers = {
+    "Content-Type": "application/json",
+    "x-api-key": API_KEY
+}
+
+resp = requests.post(url, json=payload, headers=headers, timeout=20)
+print("Status:", resp.status_code)
+try:
+    data = resp.json()
+    print("JSON:", data)
+    # Abre el enlace de pago si llega en la respuesta
+    payment_url = data.get("payment_url") or data.get("transfer_url") or data.get("simplified_transfer_url")
+    if payment_url:
+        print("payment_url:", payment_url)
+        webbrowser.open(payment_url)
+except Exception:
+    print("Texto crudo:", resp.text[:600])
+
